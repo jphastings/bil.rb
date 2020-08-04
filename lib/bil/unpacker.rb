@@ -1,7 +1,7 @@
 module BIL
   class Unpacker
-    def initialize(&unpack)
-      @unpack = unpack
+    def initialize(&unpacker_proc)
+      @unpacker_proc = unpacker_proc
       @carry = 0
     end
 
@@ -35,7 +35,7 @@ module BIL
     end
 
     def integer_complete
-      @unpack.call(@carry)
+      @unpacker_proc.call(@carry)
       @carry = 0
     end
   end

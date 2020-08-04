@@ -1,0 +1,11 @@
+interface _CharStream
+  def each_char: () -> Enumerable[String, void]
+end
+
+class BIL::Unpacker
+  def initialize: () { (Integer) -> void } -> void
+  def unpack: (_CharStream) -> void
+  def increment_carry: (Integer) -> void
+  def finalize: () -> void
+  def integer_complete: () -> void
+end

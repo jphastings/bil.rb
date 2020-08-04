@@ -1,0 +1,6 @@
+module BIL
+  TABLE: Array[String]
+
+  def self.pack: (*Integer) -> String
+  def self.unpack: (String) -> Array[Integer]
+end

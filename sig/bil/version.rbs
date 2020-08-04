@@ -1,0 +1,3 @@
+module BIL
+  VERSION: String
+end

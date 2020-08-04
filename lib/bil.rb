@@ -5,17 +5,18 @@ require 'stringio'
 
 module BIL
   TABLE = %w(z a b c d e f g h j k p q r t u Y A B C D E F G H J K P Q R T U).freeze
+  private_constant :TABLE
 
   # Convenience method for packing an array of integers
   # into a bil encoded string.
   #
-  # @param array_of_ints [Array<Integer>] An array of unsigned integers
+  # @param ints [Array<Integer>] An array of unsigned integers
   # @return [String] The bil encoded string
-  def self.pack(*array_of_ints)
+  def self.pack(*ints)
     ''.tap do |string|
       Packer.new do |chunk|
         string << chunk
-      end.pack(*array_of_ints)
+      end.pack(*ints)
     end
   end
 

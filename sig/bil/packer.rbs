@@ -1,0 +1,5 @@
+class BIL::Packer
+  def initialize: () { (String) -> void } -> void
+  def delineate!: () -> void
+  def pack: (*Integer, ?delineate: bool) -> void
+end

@@ -1,15 +1,22 @@
 module BIL
   class Packer
-    def initialize(&packed)
-      @packed = packed
+    def initialize(&packer_proc)
+      @packer_proc = packer_proc
     end
 
-    def new!
-      @packed.call(TABLE[16])
+    # Starts a new array of ints, delineating previous packed ints from the following ones.
+    #     packer.pack(1,2,3)
+    #     packer.delineate!
+    #     packer.pack(4,5,6)
+    #     # -> [[1,2,3], [4,5,6]]
+    def delineate!
+      @packer_proc.call(TABLE[16])
     end
 
+    # Write packed integers to the instatiated packer.
+    # Ends previous packs if delineate is true
     def pack(*integers, delineate: true)
-      new! if delineate
+      delineate! if delineate
 
       integers.each do |int|
         memo = Integer(int)
@@ -24,7 +31,7 @@ module BIL
           memo = memo >> 4
         end until memo == 0
 
-        @packed.call(string)
+        @packer_proc.call(string)
       end
     rescue TypeError => e
       raise ArgumentError, e.message
